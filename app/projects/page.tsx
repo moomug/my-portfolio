@@ -89,7 +89,7 @@ export default function Projects() {
                 </div>
               </div>
               
-              {/* النصوص أسفل البطاقة (الفئة والاسم) */}
+        
               <div className="px-2">
                 <p className="text-xs font-bold text-gray-400 tracking-widest mb-2 uppercase">
                   {project.category}

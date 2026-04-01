@@ -13,7 +13,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // مصفوفة تحتوي على تفاصيل مشاريعك من السيرة الذاتية
+
   const recentProjects = [
     {
       id: 1,
@@ -78,14 +78,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. قسم المشاريع الحديثة */}
+
       <section>
         <h3 className="text-2xl font-bold text-gray-900 mb-6 px-2">Recent Projects</h3>
-        {/* شبكة لتقسيم المشاريع لـ 3 أعمدة في الشاشات الكبيرة */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recentProjects.map((project) => (
             <div key={project.id} className="group cursor-pointer">
-              {/* مربع الصورة المؤقت (سنستبدله بصور لاحقاً) */}
+      
               <div className={`aspect-[4/3] w-full rounded-3xl ${project.bgPlaceholder} mb-4 overflow-hidden transition-transform duration-300 group-hover:-translate-y-2 shadow-sm relative flex items-center justify-center`}>
                  <span className="text-white font-bold opacity-50 text-xl tracking-widest">{project.title.split(' ')[0]}</span>
               </div>
@@ -98,7 +98,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. قسم دعنا نتعاون (Let's Collaborate) */}
+
       <section className="bg-white w-full rounded-[2rem] p-12 shadow-sm border border-gray-100 text-center flex flex-col items-center mt-4">
         <h3 className="text-4xl font-extrabold text-gray-900 mb-4">Let's Collaborate Together</h3>
         <p className="text-gray-500 text-lg mb-8 max-w-lg">
