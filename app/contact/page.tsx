@@ -8,7 +8,7 @@ export default function Contact() {
     <div className="p-8 w-full mb-10">
       <div className="bg-white w-full rounded-[2rem] p-10 shadow-sm border border-gray-100">
         
-        {/* 1. الترويسة */}
+       
         <div className="mb-16 pt-6">
           <span className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide mb-6">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
@@ -23,13 +23,13 @@ export default function Contact() {
           </p>
         </div>
 
-        {/* 2. قسم التواصل (النموذج والمعلومات) */}
+      
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
-          {/* الجانب الأيسر: نموذج المراسلة */}
+         
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-8">Get in Touch</h3>
-            {/* ملاحظة: لاستقبال الرسائل فعلياً، سنستخدم خدمة مثل Formspree لاحقاً في خطوة الرفع */}
+           
             <form className="flex flex-col gap-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input 
@@ -62,10 +62,10 @@ export default function Contact() {
             </form>
           </div>
 
-          {/* الجانب الأيمن: معلومات التواصل الاجتماعي */}
+      
           <div className="flex flex-col gap-12">
             
-            {/* معلومات مباشرة */}
+           
             <div className="flex flex-col gap-8">
               <h3 className="text-2xl font-bold text-gray-900">Contact Details</h3>
               
