@@ -86,7 +86,7 @@ export default function Home() {
   };
 
   return (
-    // السر هنا: تم استبدال md:p-8 بـ md:py-8 md:pr-8 md:pl-4 لتقليل المسافة من جهة السايد بار فقط
+    
     <div className="p-4 md:py-8 md:pr-8 md:pl-4 pt-24 md:pt-8 w-full flex flex-col gap-8 mb-10 relative">
       
       
