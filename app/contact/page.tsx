@@ -10,10 +10,10 @@ export default function Contact() {
         
        
         <div className="mb-16 pt-6">
-          <span className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide mb-6">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            Available for Freelance
-          </span>
+              <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide mb-6">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            OPEN TO NEW OPPORTUNITIES
+          </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
             Let's Connect! <br />
             <span className="text-[#1E3A8A]">Build Something Great Together</span>

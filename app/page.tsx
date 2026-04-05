@@ -89,10 +89,10 @@ export default function Home() {
     // السر هنا: تم استبدال md:p-8 بـ md:py-8 md:pr-8 md:pl-4 لتقليل المسافة من جهة السايد بار فقط
     <div className="p-4 md:py-8 md:pr-8 md:pl-4 pt-24 md:pt-8 w-full flex flex-col gap-8 mb-10 relative">
       
-      {/* 1. البطاقة الرئيسية */}
+      
       <div className="bg-white w-full rounded-[2rem] p-6 md:p-12 shadow-sm border border-gray-100 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
         
-        {/* القسم الأيسر: النصوص */}
+      
         <div className="flex-1 w-full lg:w-3/5 lg:pr-8 z-10 flex flex-col items-start text-left">
           
           <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide mb-6">
@@ -120,7 +120,7 @@ export default function Home() {
             backend systems, cloud-native applications, and dynamic user interfaces.
           </p>
 
-          {/* الصورة الـ 3D (مخصصة للجوال فقط - تظهر تحت النص) */}
+        
           <div className="lg:hidden w-full max-w-[250px] mx-auto mb-8 relative flex justify-center items-center z-0">
             <div className="absolute inset-0 bg-blue-50/80 rounded-full blur-2xl -z-10"></div>
             <img 
