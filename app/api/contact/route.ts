@@ -1,17 +1,20 @@
+// app/api/contact/route.ts
 import { NextResponse } from 'next/server';
+
+// ADDED THIS LINE to prevent Next.js from caching the API route
+export const dynamic = 'force-dynamic'; 
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // The server securely reads your key from the environment variables
     const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
 
     if (!accessKey) {
+      console.error("Missing Web3Forms Access Key");
       return NextResponse.json({ success: false, message: 'Server configuration error' }, { status: 500 });
     }
 
-    // Send the data from your secure Vercel server to Web3Forms
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
@@ -32,9 +35,11 @@ export async function POST(request: Request) {
     if (result.success) {
       return NextResponse.json({ success: true }, { status: 200 });
     } else {
+      console.error("Web3Forms error:", result);
       return NextResponse.json({ success: false, message: 'Failed to send' }, { status: 400 });
     }
   } catch (error) {
+    console.error("Internal API error:", error);
     return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
   }
 }
