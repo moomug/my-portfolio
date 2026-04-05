@@ -1,33 +1,45 @@
 "use client";
 
 import { useState } from "react";
-import { HiOutlineEnvelope, HiOutlinePhone, HiOutlineMapPin } from "react-icons/hi2";
+import { 
+  HiOutlineEnvelope, HiOutlinePhone, HiOutlineMapPin, 
+  HiCheckCircle, HiXMark 
+} from "react-icons/hi2";
 import { FaLinkedin, FaGithub, FaWhatsapp } from "react-icons/fa";
 
 export default function Contact() {
-  // حالة لتتبع الإرسال
   const [status, setStatus] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("Sending...");
 
     const formData = new FormData(e.currentTarget);
-    
-    // المفتاح الخاص بك
-    formData.append("access_key", "ef78e7cb-135f-4de1-937e-1a52a8ddbbad");
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // Send data to OUR secure API route instead of Web3Forms directly
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (data.success) {
-        setStatus("Success! Your message has been sent.");
-        e.currentTarget.reset(); // تفريغ الحقول بعد الإرسال الناجح
+      if (result.success) {
+        setStatus(null); 
+        setShowPopup(true); // Show the success modal
+        e.currentTarget.reset(); // Clear the form
+        
+        // Automatically hide the popup after 5 seconds
+        setTimeout(() => setShowPopup(false), 5000); 
       } else {
         setStatus("Something went wrong. Please try again.");
       }
@@ -37,7 +49,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="p-8 w-full mb-10">
+    <div className="p-8 w-full mb-10 relative">
       <div className="bg-white w-full rounded-[2rem] p-10 shadow-sm border border-gray-100">
         
         <div className="mb-16 pt-6">
@@ -56,7 +68,7 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
-          {/* قسم الفورم */}
+          {/* Form Section */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-8">Get in Touch</h3>
             
@@ -64,14 +76,14 @@ export default function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input 
                   type="text" 
-                  name="name" // ضروري جداً
+                  name="name" 
                   required
                   placeholder="Your Name" 
                   className="bg-gray-50 border border-gray-100 rounded-xl p-4 outline-none focus:border-[#1E3A8A] transition-colors"
                 />
                 <input 
                   type="email" 
-                  name="email" // ضروري جداً
+                  name="email" 
                   required
                   placeholder="Your Email" 
                   className="bg-gray-50 border border-gray-100 rounded-xl p-4 outline-none focus:border-[#1E3A8A] transition-colors"
@@ -79,13 +91,13 @@ export default function Contact() {
               </div>
               <input 
                 type="text" 
-                name="subject" // ضروري جداً
+                name="subject" 
                 required
                 placeholder="Subject" 
                 className="bg-gray-50 border border-gray-100 rounded-xl p-4 outline-none focus:border-[#1E3A8A] transition-colors"
               />
               <textarea 
-                name="message" // ضروري جداً
+                name="message" 
                 required
                 placeholder="Message" 
                 rows={6}
@@ -94,23 +106,22 @@ export default function Contact() {
               
               <button 
                 type="submit"
-                className="bg-[#1E3A8A] text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition-all shadow-lg shadow-blue-100 active:scale-95 flex items-center justify-center"
+                disabled={status === "Sending..."}
+                className="bg-[#1E3A8A] text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition-all shadow-lg shadow-blue-100 active:scale-95 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === "Sending..." ? "Sending..." : "Send Message"}
               </button>
 
-              {/* رسالة النجاح أو الفشل */}
               {status && status !== "Sending..." && (
-                <p className={`text-sm font-bold ${status.includes("Success") ? "text-emerald-600" : "text-red-500"}`}>
+                <p className="text-sm font-bold text-red-500 text-center">
                   {status}
                 </p>
               )}
             </form>
           </div>
 
-          {/* قسم بيانات التواصل */}
+          {/* Contact Details Section */}
           <div className="flex flex-col gap-12">
-            
             <div className="flex flex-col gap-8">
               <h3 className="text-2xl font-bold text-gray-900">Contact Details</h3>
               
@@ -159,12 +170,36 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-
           </div>
-
         </div>
 
       </div>
+
+      {/* Success Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/40 backdrop-blur-sm transition-all duration-300 px-4">
+          <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl relative transform transition-all scale-100">
+            <button 
+              onClick={() => setShowPopup(false)} 
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-full p-1 transition-colors"
+            >
+              <HiXMark size={24} />
+            </button>
+            <HiCheckCircle className="mx-auto text-emerald-500 mb-4" size={72} />
+            <h3 className="text-2xl font-black text-gray-900 mb-2">Message Sent!</h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-8">
+              Thank you for reaching out. I've received your message and will get back to you shortly.
+            </p>
+            <button 
+              onClick={() => setShowPopup(false)} 
+              className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-xl hover:bg-black transition-colors"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
