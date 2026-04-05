@@ -16,19 +16,18 @@ export default function Contact() {
     setStatus("Sending...");
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      subject: formData.get("subject"),
-      message: formData.get("message"),
-    };
+    
+    // Your key is perfectly safe here as long as you use Domain Restriction in Web3Forms
+    formData.append("access_key", "ef78e7cb-135f-4de1-937e-1a52a8ddbbad");
 
     try {
-      // Send data to OUR secure API route instead of Web3Forms directly
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          // THIS is the magic line that fixes the error you had originally!
+          "Accept": "application/json" 
+        },
+        body: formData,
       });
 
       const result = await response.json();
